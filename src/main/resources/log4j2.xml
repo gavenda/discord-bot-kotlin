@@ -4,7 +4,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout disableAnsi="false">
                 <Pattern>
-                    %d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{}{magenta} %style{%C}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%xEx}
+                    %d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}} -- %style{%-24.24c{1}}{yellow} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%xEx}
                 </Pattern>
             </PatternLayout>
         </Console>

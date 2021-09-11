@@ -1,12 +1,27 @@
 package bot
 
+import bot.command.onAbout
+import bot.command.onClear
 import bot.discord.interaction.command
 import bot.discord.interaction.updateCommands
+import bot.discord.listener
 import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 
 object Command {
     const val ABOUT = "about"
     const val CLEAR = "clear"
+}
+
+fun JDA.bindCommands(): JDA {
+    listener<SlashCommandEvent> {
+        when (it.name) {
+            Command.ABOUT -> onAbout(it)
+            Command.CLEAR -> onClear(it)
+        }
+    }
+
+    return this
 }
 
 fun JDA.updateBotCommands() = updateCommands {

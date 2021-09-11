@@ -1,38 +1,34 @@
 package bot.command
 
-import bot.*
+import bot.Log4j2
+import bot.deleteMessages
 import bot.discord.await
-import bot.discord.onCommand
-import net.dv8tion.jda.api.JDA
+import bot.discord.interaction.deferReplyAwait
+import bot.discord.interaction.sendMessageAwait
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 
-fun JDA.handleClear(): JDA {
+suspend fun onClear(event: SlashCommandEvent) {
     val log by Log4j2("Clear")
 
-    onCommand(Command.CLEAR) { event ->
-        event.awaitDeferReply(true)
+    event.deferReplyAwait(true)
 
-        val guild = event.guild
-        // Assure direct message
-        if (guild != null) {
-            event.sendLocalizedMessage(LocaleMessage.DirectMessageOnly)
-            return@onCommand
-        }
-
-        log.debug("Clearing direct messages for user: ${event.user.name}")
-
-        var messages: List<Message>
-
-        do {
-            messages = event.privateChannel.history
-                .retrievePast(100)
-                .await()
-            event.privateChannel.deleteMessages(messages)
-        } while (messages.isNotEmpty())
-
-        event.sendLocalizedMessage(LocaleMessage.DirectMessageCleared)
+    // Assure direct message
+    if (event.isFromGuild) {
+        event.sendMessageAwait("This can only be done inside direct messages.")
+        return
     }
 
-    return this
-}
+    log.debug("Clearing direct messages for user: ${event.user.name}")
 
+    var messages: List<Message>
+
+    do {
+        messages = event.privateChannel.history
+            .retrievePast(100)
+            .await()
+        event.privateChannel.deleteMessages(messages)
+    } while (messages.isNotEmpty())
+
+    event.sendMessageAwait("I have cleared the trash for you.")
+}

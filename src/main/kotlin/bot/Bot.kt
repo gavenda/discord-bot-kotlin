@@ -1,7 +1,5 @@
 package bot
 
-import bot.command.handleAbout
-import bot.command.handleClear
 import bot.discord.useCoroutines
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -17,8 +15,8 @@ val bot = DI {
         JDABuilder.createLight(Environment.BOT_TOKEN)
             .useCoroutines()
             .useSharding(Environment.BOT_SHARD_ID, Environment.BOT_SHARD_TOTAL)
+            .setEnableShutdownHook(true)
             .build()
-            .handleAbout()
-            .handleClear()
+            .bindCommands()
     }
 }

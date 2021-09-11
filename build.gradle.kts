@@ -13,7 +13,7 @@ repositories {
     maven("https://m2.dv8tion.net/releases")
 }
 
-val basuraMainClass = "basura.MainKt"
+val botMainClass = "bot.MainKt"
 val gitHash: String get() {
     if(File(".git").exists().not()) {
         return "SNAPSHOT"
@@ -90,5 +90,5 @@ tasks {
 }
 
 application {
-    mainClass.set(basuraMainClass)
+    mainClass.set(botMainClass)
 }

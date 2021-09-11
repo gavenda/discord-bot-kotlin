@@ -17,25 +17,4 @@ object Environment {
         get() =
             System.getenv("BOT_SHARD_TOTAL")
                 .toInt()
-
-    /**
-     * Database JDBC url.
-     */
-    val DB_URL: String
-        get() =
-            System.getenv("DB_URL")
-
-    /**
-     * Database user name.
-     */
-    val DB_USER: String
-        get() =
-            System.getenv("DB_USER")
-
-    /**
-     * Database user password.
-     */
-    val DB_PASS: String
-        get() =
-            System.getenv("DB_PASS")
 }

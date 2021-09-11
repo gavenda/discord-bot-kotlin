@@ -72,21 +72,19 @@ tasks {
     }
 
     val generateVersionProperties = register(name = "generateVersionProperties") {
-        doLast {
-            val resourcesDir = File("$buildDir/resources/main").apply {
-                mkdirs()
-            }
-            val propertiesFilePath = File(resourcesDir, "/version.properties").apply {
-                createNewFile()
-            }
-            Properties().apply {
-                setProperty("version", version.toString())
-                store(propertiesFilePath.outputStream(), null)
-            }
+        val resourcesDir = File("$buildDir/resources/main").apply {
+            mkdirs()
+        }
+        val propertiesFilePath = File(resourcesDir, "/version.properties").apply {
+            createNewFile()
+        }
+        Properties().apply {
+            setProperty("version", version.toString())
+            store(propertiesFilePath.outputStream(), null)
         }
     }
 
-    processResources {
+    compileKotlin {
         dependsOn(generateVersionProperties)
     }
 }

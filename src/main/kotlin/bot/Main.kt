@@ -13,7 +13,11 @@ fun main() {
 
         // Await and update commands
         jda.awaitReady()
-        jda.updateBotCommands().queue()
+
+        // Only update when specified
+        if (Environment.BOT_UPDATE_COMMANDS) {
+            jda.updateBotCommands().queue()
+        }
 
         Runtime.getRuntime().addShutdownHook(object : Thread() {
             override fun run() = jda.shutdown()

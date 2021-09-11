@@ -19,8 +19,8 @@ fun JDA.handleAbout(): JDA {
     onCommand(Command.ABOUT) { event ->
         event.replyEmbeds(
             Embed {
-                title = "What is Basura?"
-                url = "https://github.com/gavenda/basura"
+                title = "About"
+                url = "https://github.com/gavenda/discord-bot-kotlin"
                 description = Messages.whenApplicableFor(
                     user = event.user,
                     guild = event.guild

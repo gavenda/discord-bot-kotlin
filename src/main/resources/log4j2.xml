@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false">
+                <Pattern>
+                    %d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{}{magenta} %style{%C}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%xEx}
+                </Pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile
+                name="Bot"
+                fileName="logs/bot.log"
+                filePattern="logs/$${date:yyyy-MM}/bot-%d{MM-dd-yyyy}-%i.log.gz"
+        >
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile
+                name="Error"
+                fileName="logs/error.log"
+                filePattern="logs/$${date:yyyy-MM}/error-%d{MM-dd-yyyy}-%i.log.gz"
+        >
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="bot" level="debug" additivity="false">
+            <AppenderRef ref="Bot"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="net.dv8tion" level="debug" additivity="false">
+            <AppenderRef ref="Bot"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Error"/>
+        </Root>
+    </Loggers>
+</Configuration>

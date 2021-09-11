@@ -61,10 +61,11 @@ java {
 }
 
 tasks {
-    withType<KotlinCompile> {
+    compileKotlin {
         kotlinOptions {
             jvmTarget = "11"
             freeCompilerArgs = listOf(
+                "-Xjsr305=strict",
                 "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-Xuse-experimental=kotlinx.coroutines.DelicateCoroutinesApi"
             )
@@ -84,8 +85,8 @@ tasks {
         }
     }
 
-    compileKotlin {
-        dependsOn(generateVersionProperties)
+    classes.configure {
+        finalizedBy(generateVersionProperties)
     }
 }
 

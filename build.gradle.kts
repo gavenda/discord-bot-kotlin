@@ -30,7 +30,7 @@ val gitHash: String get() {
         }
 }
 
-group = "basura"
+group = "bot"
 version = "1.0-$gitHash"
 
 dependencies {

@@ -23,11 +23,4 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 /**
  * Applies the [CoroutineEventManager] to this builder.
  */
-@DelicateCoroutinesApi
 fun JDABuilder.useCoroutines() = setEventManager(CoroutineEventManager())
-
-/**
- * Applies the [CoroutineEventManager] to this builder.
- */
-@DelicateCoroutinesApi
-fun DefaultShardManagerBuilder.useCoroutines() = setEventManagerProvider { CoroutineEventManager() }

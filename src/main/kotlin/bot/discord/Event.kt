@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
 import net.dv8tion.jda.api.events.interaction.GenericComponentInteractionCreateEvent
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent
 import net.dv8tion.jda.api.hooks.EventListener
-import net.dv8tion.jda.api.hooks.SubscribeEvent
 import kotlin.coroutines.resume
 
 /**
@@ -38,9 +37,9 @@ import kotlin.coroutines.resume
  * }
  * ```
  *
- * @param[consumer] The event consumer function
+ * @param [consumer] The event consumer function
  *
- * @return[CoroutineEventListener] The created event listener instance (can be used to remove later)
+ * @return [CoroutineEventListener] The created event listener instance (can be used to remove later)
  */
 inline fun <reified T : GenericEvent> JDA.listener(crossinline consumer: suspend CoroutineEventListener.(T) -> Unit): CoroutineEventListener {
     return object : CoroutineEventListener {
@@ -63,16 +62,16 @@ inline fun <reified T : GenericEvent> JDA.listener(crossinline consumer: suspend
  * ## Example
  *
  * ```kotlin
- * jda.on<ButtonClickEvent>("delete") { event ->
+ * jda.onComponent<ButtonClickEvent>("delete") { event ->
  *     event.deferEdit().queue()
  *     event.hook.deleteOriginal().queue()
  * }
  * ```
  *
- * @param[customId] The button id
- * @param[consumer] The event consumer function
+ * @param [customId] The button id
+ * @param [consumer] The event consumer function
  *
- * @return[CoroutineEventListener] The created event listener instance (can be used to remove later)
+ * @return [CoroutineEventListener] The created event listener instance (can be used to remove later)
  */
 inline fun <reified T : GenericComponentInteractionCreateEvent> JDA.onComponent(
     customId: String,
@@ -96,10 +95,10 @@ inline fun <reified T : GenericComponentInteractionCreateEvent> JDA.onComponent(
  * }
  * ```
  *
- * @param[id] The button id
- * @param[consumer] The event consumer function
+ * @param [id] The button id
+ * @param [consumer] The event consumer function
  *
- * @return[CoroutineEventListener] The created event listener instance (can be used to remove later)
+ * @return [CoroutineEventListener] The created event listener instance (can be used to remove later)
  */
 inline fun JDA.onButton(id: String, crossinline consumer: suspend CoroutineEventListener.(ButtonClickEvent) -> Unit) =
     onComponent(id, consumer)
@@ -118,10 +117,10 @@ inline fun JDA.onButton(id: String, crossinline consumer: suspend CoroutineEvent
  * }
  * ```
  *
- * @param[id] The selection menu id
- * @param[consumer] The event consumer function
+ * @param [id] The selection menu id
+ * @param [consumer] The event consumer function
  *
- * @return[CoroutineEventListener] The created event listener instance (can be used to remove later)
+ * @return [CoroutineEventListener] The created event listener instance (can be used to remove later)
  */
 inline fun JDA.onSelection(
     id: String,
@@ -156,7 +155,6 @@ inline fun JDA.onSelection(
 suspend inline fun <reified T : GenericEvent> JDA.await(crossinline filter: (T) -> Boolean = { true }) =
     suspendCancellableCoroutine<T> {
         val listener = object : EventListener {
-            @SubscribeEvent
             override fun onEvent(event: GenericEvent) {
                 if (event is T && filter(event)) {
                     removeEventListener(this)

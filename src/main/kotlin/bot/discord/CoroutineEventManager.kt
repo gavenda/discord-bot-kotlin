@@ -16,7 +16,6 @@
 package bot.discord
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.events.GenericEvent
@@ -29,7 +28,6 @@ import java.util.concurrent.CopyOnWriteArrayList
  *
  * This enables [the coroutine listener extension][listener].
  */
-@DelicateCoroutinesApi
 class CoroutineEventManager(
     private val scope: CoroutineScope = GlobalScope
 ) : IEventManager {

@@ -2,10 +2,19 @@ package bot.command
 
 import bot.Embed
 import bot.discord.await
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import java.util.*
 
 suspend fun onAbout(event: SlashCommandEvent) {
+    val version = Properties().apply {
+        withContext(Dispatchers.IO) {
+            runCatching {
+                load(object {}.javaClass.getResourceAsStream("/version.properties"))
+            }
+        }
+    }.getProperty("version") ?: "-"
     val java = System.getProperty("java.vendor")
     val javaVersion = System.getProperty("java.version")
     val sys = System.getProperty("os.name")
@@ -19,7 +28,7 @@ suspend fun onAbout(event: SlashCommandEvent) {
             description = "Your discord bot description goes here."
             field {
                 name = "Version"
-                value = VERSION
+                value = version
                 inline = true
             }
             field {
@@ -51,9 +60,3 @@ suspend fun onAbout(event: SlashCommandEvent) {
         .setEphemeral(true)
         .await()
 }
-
-val VERSION: String
-    get() =
-        Properties().apply {
-            load(object {}.javaClass.getResourceAsStream("/version.properties"))
-        }.getProperty("version") ?: "-"

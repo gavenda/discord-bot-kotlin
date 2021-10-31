@@ -148,7 +148,7 @@ inline fun JDA.onSelection(
  * }
  * ```
  *
- * @param[filter] The event filter function (optional)
+ * @param [filter] The event filter function (optional)
  *
  * @return The filtered event
  */

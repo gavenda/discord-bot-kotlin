@@ -1,15 +1,15 @@
 package bot.command
 
-import bot.Log4j2
 import bot.deleteMessages
 import bot.discord.await
 import bot.discord.interaction.deferReplyAwait
 import bot.discord.interaction.sendMessageAwait
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import org.apache.logging.log4j.kotlin.logger
 
 suspend fun onClear(event: SlashCommandEvent) {
-    val log by Log4j2("Clear")
+    val log = logger("Clear")
 
     event.deferReplyAwait(true)
 

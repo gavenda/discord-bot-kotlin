@@ -4,12 +4,13 @@ import bot.discord.await
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.events.ReadyEvent
+import org.apache.logging.log4j.kotlin.logger
 import org.kodein.di.instance
 import java.net.SocketException
 import kotlin.system.exitProcess
 
 fun main() = runBlocking {
-    val log by Log4j2("Main")
+    val log = logger("Main")
 
     try {
         val jda by bot.instance<JDA>()
